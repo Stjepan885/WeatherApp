@@ -34,8 +34,8 @@ data class CoordCity(
 }
 
 data class Day(
-    @SerializedName("feels_like")
-    val temp: Temp,
+    @SerializedName("temp")
+    val temp: Tempera,
     @SerializedName("weather")
     val dayWeather: ArrayList<DayWeather>
 ){
@@ -44,7 +44,7 @@ data class Day(
     }
 }
 
-data class Temp(
+data class Tempera(
     @SerializedName("day")
     val day: Double,
     @SerializedName("min")

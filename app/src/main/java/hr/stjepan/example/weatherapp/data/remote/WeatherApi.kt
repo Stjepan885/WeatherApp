@@ -15,7 +15,7 @@ interface WeatherApi {
         @Query("appid") appid: String
     ): WeatherResponse
 
-    @GET("/data/2.5/forecast")
+    @GET("/data/2.5/forecast/daily")
     suspend fun getWeekWeatherData(
         @Query("lat") latitude: Double,
         @Query("lon") longitude: Double,
