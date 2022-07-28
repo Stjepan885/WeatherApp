@@ -2,13 +2,20 @@ package hr.stjepan.example.weatherapp.presentaion
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import hr.stjepan.example.weatherapp.data.model.WeatherResponse
-import hr.stjepan.example.weatherapp.data.model.WeekWeatherResponse
-import hr.stjepan.example.weatherapp.domain.Repository
 
 class MainViewModel: ViewModel() {
+
+    private val mutableSelectedItem = MutableLiveData<Pair<String, String>>()
+    val selectedItem: LiveData<Pair<String,String>> get() = mutableSelectedItem
+
+    fun selectItem(item: String, item1: String) {
+        val items = Pair(item,item1)
+        mutableSelectedItem.value = items
+    }
+
+
+    /*
 
     private val _weather: MutableLiveData<Pair<Double, Double>> = MutableLiveData()
     private val _weekWeather: MutableLiveData<Pair<Double, Double>> = MutableLiveData()
@@ -44,4 +51,6 @@ class MainViewModel: ViewModel() {
     fun cancelJobs(){
         Repository.cancelJobs()
     }
+
+     */
 }

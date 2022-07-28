@@ -1,0 +1,442 @@
+[
+  {
+    "id": 3183875,
+    "name": "Tirana",
+    "state": "",
+    "country": "AL",
+    "coord": {
+      "lon": 19.81889,
+      "lat": 41.327499
+    }
+  },
+  {
+    "id": 3041563,
+    "name": "Andorra la Vella",
+    "state": "",
+    "country": "AD",
+    "coord": {
+      "lon": 1.52109,
+      "lat": 42.50779
+    }
+  },
+  {
+    "id": 4095475,
+    "name": "Vienna",
+    "state": "AL",
+    "country": "US",
+    "coord": {
+      "lon": -88.191971,
+      "lat": 33.018742
+    }
+  },
+  {
+    "id": 625144,
+    "name": "Minsk",
+    "state": "",
+    "country": "BY",
+    "coord": {
+      "lon": 27.566668,
+      "lat": 53.900002
+    }
+  },
+  {
+    "id": 2800866,
+    "name": "Brussels",
+    "state": "",
+    "country": "BE",
+    "coord": {
+      "lon": 4.34878,
+      "lat": 50.850449
+    }
+  },
+  {
+    "id": 3191281,
+    "name": "Sarajevo",
+    "state": "",
+    "country": "BA",
+    "coord": {
+      "lon": 18.35644,
+      "lat": 43.84864
+    }
+  },
+  {
+    "id": 727012,
+    "name": "Sofia",
+    "state": "",
+    "country": "BG",
+    "coord": {
+      "lon": 23.633329,
+      "lat": 42.650002
+    }
+  },
+  {
+    "id": 3186886,
+    "name": "Zagreb",
+    "state": "",
+    "country": "HR",
+    "coord": {
+      "lon": 15.97798,
+      "lat": 45.814442
+    }
+  },
+  {
+    "id": 3202888,
+    "name": "Čakovec",
+    "state": "",
+    "country": "HR",
+    "coord": {
+      "lon": 16.433889,
+      "lat": 46.384441
+    }
+  },
+  {
+    "id": 3191648,
+    "name": "Rijeka",
+    "state": "",
+    "country": "HR",
+    "coord": {
+      "lon": 14.40917,
+      "lat": 45.34306
+    }
+  },
+  {
+    "id": 4548393,
+    "name": "Prague",
+    "state": "OK",
+    "country": "US",
+    "coord": {
+      "lon": -96.68502,
+      "lat": 35.48674
+    }
+  },
+  {
+    "id": 2618425,
+    "name": "Copenhagen",
+    "state": "",
+    "country": "DK",
+    "coord": {
+      "lon": 12.56553,
+      "lat": 55.675941
+    }
+  },
+  {
+    "id": 588409,
+    "name": "Tallinn",
+    "state": "",
+    "country": "EE",
+    "coord": {
+      "lon": 24.753531,
+      "lat": 59.436958
+    }
+  },
+  {
+    "id": 658225,
+    "name": "Helsinki",
+    "state": "",
+    "country": "FI",
+    "coord": {
+      "lon": 24.93545,
+      "lat": 60.16952
+    }
+  },
+  {
+    "id": 2968815,
+    "name": "Paris",
+    "state": "",
+    "country": "FR",
+    "coord": {
+      "lon": 2.3486,
+      "lat": 48.853401
+    }
+  },
+  {
+    "id": 2950158,
+    "name": "Berlin",
+    "state": "",
+    "country": "DE",
+    "coord": {
+      "lon": 10.45,
+      "lat": 54.033329
+    }
+  },
+  {
+    "id": 264371,
+    "name": "Athens",
+    "state": "",
+    "country": "GR",
+    "coord": {
+      "lon": 23.716221,
+      "lat": 37.97945
+    }
+  },
+  {
+    "id": 3054638,
+    "name": "Budapest",
+    "state": "",
+    "country": "HU",
+    "coord": {
+      "lon": 19.08333,
+      "lat": 47.5
+    }
+  },
+  {
+    "id": 3413829,
+    "name": "Reykjavík",
+    "state": "",
+    "country": "IS",
+    "coord": {
+      "lon": -21.895411,
+      "lat": 64.135483
+    }
+  },
+  {
+    "id": 2964574,
+    "name": "Dublin",
+    "state": "",
+    "country": "IE",
+    "coord": {
+      "lon": -6.26719,
+      "lat": 53.34399
+    }
+  },
+  {
+    "id": 3169070,
+    "name": "Rome",
+    "state": "",
+    "country": "IT",
+    "coord": {
+      "lon": 12.4839,
+      "lat": 41.894741
+    }
+  },
+  {
+    "id": 456172,
+    "name": "Riga",
+    "state": "",
+    "country": "LV",
+    "coord": {
+      "lon": 24.1,
+      "lat": 56.950001
+    }
+  },
+  {
+    "id": 3042030,
+    "name": "Vaduz",
+    "state": "",
+    "country": "LI",
+    "coord": {
+      "lon": 9.52154,
+      "lat": 47.14151
+    }
+  },
+  {
+    "id": 593116,
+    "name": "Vilnius",
+    "state": "",
+    "country": "LT",
+    "coord": {
+      "lon": 25.2798,
+      "lat": 54.689159
+    }
+  },
+  {
+    "id": 2960315,
+    "name": "Luxembourg",
+    "state": "",
+    "country": "LU",
+    "coord": {
+      "lon": 6.13333,
+      "lat": 49.599998
+    }
+  },
+  {
+  "id": 2562305,
+  "name": "Valletta",
+  "state": "",
+  "country": "MT",
+  "coord": {
+    "lon": 14.51472,
+    "lat": 35.899719
+  }
+},
+  {
+    "id": 618426,
+    "name": "Chisinau",
+    "state": "",
+    "country": "MD",
+    "coord": {
+      "lon": 28.8575,
+      "lat": 47.005562
+    }
+  },
+  {
+    "id": 2993457,
+    "name": "Principality of Monaco",
+    "state": "",
+    "country": "MC",
+    "coord": {
+      "lon": 7.41903,
+      "lat": 43.731411
+    }
+  },
+  {
+    "id": 3189077,
+    "name": "Podgorica",
+    "state": "",
+    "country": "ME",
+    "coord": {
+      "lon": 19.33333,
+      "lat": 42.5
+    }
+  },
+  {
+    "id": 5107152,
+    "name": "Amsterdam",
+    "state": "NY",
+    "country": "US",
+    "coord": {
+      "lon": -74.188187,
+      "lat": 42.93869
+    }
+  },
+  {
+    "id": 785842,
+    "name": "Skopje",
+    "state": "",
+    "country": "MK",
+    "coord": {
+      "lon": 21.433331,
+      "lat": 42.0
+    }
+  },
+  {
+    "id": 3143244,
+    "name": "Oslo",
+    "state": "",
+    "country": "NO",
+    "coord": {
+      "lon": 10.74609,
+      "lat": 59.912731
+    }
+  },
+  {
+    "id": 756135,
+    "name": "Warsaw",
+    "state": "",
+    "country": "PL",
+    "coord": {
+      "lon": 21.01178,
+      "lat": 52.229771
+    }
+  },
+  {
+    "id": 2267057,
+    "name": "Lisbon",
+    "state": "",
+    "country": "PT",
+    "coord": {
+      "lon": -9.13333,
+      "lat": 38.716671
+    }
+  },
+  {
+    "id": 683506,
+    "name": "Bucharest",
+    "state": "",
+    "country": "RO",
+    "coord": {
+      "lon": 26.10626,
+      "lat": 44.432251
+    }
+  },
+  {
+    "id": 524894,
+    "name": "Moscow",
+    "state": "",
+    "country": "RU",
+    "coord": {
+      "lon": 37.606667,
+      "lat": 55.761665
+    }
+  },
+  {
+    "id": 3168070,
+    "name": "San Marino",
+    "state": "",
+    "country": "SM",
+    "coord": {
+      "lon": 12.45,
+      "lat": 43.933331
+    }
+  },
+  {
+    "id": 792680,
+    "name": "Belgrade",
+    "state": "",
+    "country": "RS",
+    "coord": {
+      "lon": 20.46513,
+      "lat": 44.804008
+    }
+  },
+  {
+    "id": 3060972,
+    "name": "Bratislava",
+    "state": "",
+    "country": "SK",
+    "coord": {
+      "lon": 17.106741,
+      "lat": 48.148159
+    }
+  },
+  {
+    "id": 3196359,
+    "name": "Ljubljana",
+    "state": "",
+    "country": "SI",
+    "coord": {
+      "lon": 14.50513,
+      "lat": 46.051079
+    }
+  },
+  {
+    "id": 6359304,
+    "name": "Madrid",
+    "state": "",
+    "country": "ES",
+    "coord": {
+      "lon": -3.68275,
+      "lat": 40.489349
+    }
+  },
+  {
+    "id": 2673722,
+    "name": "Stockholm",
+    "state": "",
+    "country": "SE",
+    "coord": {
+      "lon": 18.0,
+      "lat": 59.5
+    }
+  },
+  {
+    "id": 2661552,
+    "name": "Bern",
+    "state": "",
+    "country": "CH",
+    "coord": {
+      "lon": 7.44744,
+      "lat": 46.94809
+    }
+  },
+  {
+    "id": 2643743,
+    "name": "London",
+    "state": "",
+    "country": "GB",
+    "coord": {
+      "lon": -0.12574,
+      "lat": 51.50853
+    }
+  }
+]

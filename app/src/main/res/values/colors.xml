@@ -7,4 +7,17 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="clear_up_day">#00ccff</color>
+    <color name="clear_down_day">#007acc</color>
+
+    <color name="clear_up_night">#9561a1</color>
+    <color name="clear_down_night">#122259</color>
+
+    <color name="cloudy_up">#a6bdca</color>
+    <color name="cloudy_down">#5393b2</color>
+
+    <color name="snow_up">#777b86</color>
+    <color name="snow_down">#5393b2</color>
+
 </resources>

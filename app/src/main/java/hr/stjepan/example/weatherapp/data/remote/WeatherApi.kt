@@ -1,9 +1,8 @@
 package hr.stjepan.example.weatherapp.data.remote
 
 import hr.stjepan.example.weatherapp.data.model.WeatherResponse
-import hr.stjepan.example.weatherapp.data.model.WeekWeatherResponse
+import hr.stjepan.example.weatherapp.data.model.WeekWeatherModel
 import retrofit2.http.GET
-import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface WeatherApi {
@@ -12,7 +11,8 @@ interface WeatherApi {
     suspend fun getWeatherData(
         @Query("lat") latitude: Double,
         @Query("lon") longitude: Double,
-        @Query("appid") appid: String
+        @Query("appid") appid: String,
+        @Query("units") units: String
     ): WeatherResponse
 
     @GET("/data/2.5/forecast/daily")
@@ -21,5 +21,16 @@ interface WeatherApi {
         @Query("lon") longitude: Double,
         @Query("cnt") count: Int,
         @Query("appid") appid: String
-    ): WeekWeatherResponse
+    ): WeekWeatherModel
+
+    @GET("/data/2.5/forecast/hourly")
+    suspend fun getHourWeatherData(
+        @Query("lat") latitude: Double,
+        @Query("lon") longitude: Double,
+        @Query("cnt") count: Int,
+        @Query("appid") appid: String
+    ): WeekWeatherModel
+
+
+
 }
