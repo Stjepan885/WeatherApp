@@ -2,7 +2,7 @@ package hr.stjepan.example.weatherapp.data.model
 
 import com.google.gson.annotations.SerializedName
 
-data class WeekWeatherModel(
+data class DayWeatherModel(
     @SerializedName("city")
     val cities: Cities,
     @SerializedName("list")
@@ -42,7 +42,7 @@ data class Day(
     val dayWeather: ArrayList<DayWeather>
 ){
     override fun toString(): String {
-        return "Day(temp='$temp', dayWeather=$dayWeather)"
+        return "Day(day=$day, temp=$temp, dayWeather=$dayWeather)"
     }
 }
 

@@ -4,13 +4,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import hr.stjepan.example.weatherapp.data.model.WeekWeatherModel
+import hr.stjepan.example.weatherapp.data.model.DayWeatherModel
 import hr.stjepan.example.weatherapp.domain.Repository
 
 class WeatherDailyViewModel : ViewModel() {
     private val _weekWeather: MutableLiveData<Pair<Double, Double>> = MutableLiveData()
 
-    val weekWeather: LiveData<WeekWeatherModel> = Transformations
+    val weekWeather: LiveData<DayWeatherModel> = Transformations
         .switchMap(_weekWeather){
             Repository.getWeekWeather(it.first, it.second)
         }

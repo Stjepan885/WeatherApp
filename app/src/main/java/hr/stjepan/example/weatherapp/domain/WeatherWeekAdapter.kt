@@ -11,7 +11,7 @@ import hr.stjepan.example.weatherapp.R
 import hr.stjepan.example.weatherapp.data.model.Day
 import java.text.SimpleDateFormat
 
-class WeatherDayAdapter(c: Context, items: List<Day>): RecyclerView.Adapter<WeatherDayAdapter.ViewHolder>(){
+class WeatherWeekAdapter(c: Context, items: List<Day>): RecyclerView.Adapter<WeatherWeekAdapter.ViewHolder>(){
 
     var items: List<Day>
     var context: Context

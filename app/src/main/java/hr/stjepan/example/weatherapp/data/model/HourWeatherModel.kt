@@ -2,7 +2,7 @@ package hr.stjepan.example.weatherapp.data.model
 
 import com.google.gson.annotations.SerializedName
 
-data class HourlyWeatherModel(
+data class HourWeatherModel(
     @SerializedName("city")
     val city: City,
     @SerializedName("list")

@@ -3,7 +3,7 @@ package hr.stjepan.example.weatherapp.domain
 import androidx.lifecycle.LiveData
 import hr.stjepan.example.weatherapp.BuildConfig
 import hr.stjepan.example.weatherapp.data.model.WeatherResponse
-import hr.stjepan.example.weatherapp.data.model.WeekWeatherModel
+import hr.stjepan.example.weatherapp.data.model.DayWeatherModel
 import hr.stjepan.example.weatherapp.data.remote.MyRetrofitBuilder
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
@@ -37,9 +37,9 @@ object Repository {
         }
     }
 
-    fun getWeekWeather(lat: Double, long: Double): LiveData<WeekWeatherModel> {
+    fun getWeekWeather(lat: Double, long: Double): LiveData<DayWeatherModel> {
         job1 = Job()
-        return object : LiveData<WeekWeatherModel>() {
+        return object : LiveData<DayWeatherModel>() {
             override fun onActive() {
                 super.onActive()
                 job1?.let {
@@ -48,7 +48,8 @@ object Repository {
                             lat,
                             long,
                             7,
-                            BuildConfig.apiKey
+                            BuildConfig.apiKey,
+                            "metric"
                         )
                         withContext(Main) {
                             value = weather

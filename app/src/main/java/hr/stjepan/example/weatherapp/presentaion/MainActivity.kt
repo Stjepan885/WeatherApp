@@ -11,18 +11,20 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import hr.stjepan.example.weatherapp.R
+import hr.stjepan.example.weatherapp.data.model.Day
 import hr.stjepan.example.weatherapp.domain.PagerAdapter
+
 
 class MainActivity : AppCompatActivity() {
     lateinit var viewModel: MainViewModel
-    private lateinit var fragmentManager: FragmentManager
     lateinit var currentWeatherFragment: CurrentWeatherFragment
-    lateinit var weatherDailyFragment: WeatherDailyFragment
 
     lateinit var pagerAdapter: PagerAdapter
     lateinit var tabLayout: TabLayout
+    lateinit var viewPager: ViewPager
 
     lateinit var but: Button
 
@@ -32,33 +34,38 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
         currentWeatherFragment = CurrentWeatherFragment()
-        weatherDailyFragment = WeatherDailyFragment()
 
         but = findViewById(R.id.button)
-
         tabLayout = findViewById(R.id.tab_layout)
+        viewPager = findViewById(R.id.view_pager)
 
         supportFragmentManager
             .beginTransaction()
             .add(R.id.linearLayout, currentWeatherFragment)
-            .add(R.id.fragment_container_daily, weatherDailyFragment)
             .commitNow()
 
-        fragmentManager = supportFragmentManager
+        pagerAdapter = PagerAdapter(supportFragmentManager)
 
-        pagerAdapter = PagerAdapter(
-            fragmentManager,
-            tabLayout.getTabCount(),
-            this@MainActivity
-        )
+        viewPager.adapter = pagerAdapter
+        tabLayout.setupWithViewPager(viewPager)
+/*
+        tabLayout.addOnTabSelectedListener(
+            object : TabLayout.OnTabSelectedListener {
+                override fun onTabSelected(tab: TabLayout.Tab) {
+                    viewPager.currentItem = tab.position
+                    Log.e("i" , " ${tab.position} ")
+                }
+
+                override fun onTabUnselected(tab: TabLayout.Tab) {}
+                override fun onTabReselected(tab: TabLayout.Tab) {}
+            })
+
+ */
 
 
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-
         viewModel.selectedItem.observe(this, Observer {
-
             setBackground(it.first, it.second)
         })
 
@@ -66,24 +73,6 @@ class MainActivity : AppCompatActivity() {
             setBackground()
         })
 
-
-        /*
-            viewModel.weather.observe(this, Observer {
-                println("DEBUG: $it")
-            })
-
-
-            viewModel.weekWeather.observe(this, Observer {
-                println("DEBUG2: ${it}")
-                println("DEBUG3: ${it.cities}")
-                println("DEBUG4: ${it.list}")
-                println("DEBUG5: ${it.list[0]}")
-                println("DEBUG6: ${it.list[0].dayWeather}")
-                println("DEBUG2: ${it.list}")
-            })
-    */
-        //viewModel.setLocation(50.0,16.0)
-        //viewModel.setWeekLocation(35.0,139.0)
     }
 
     private fun setBackground(time: String, type: String) {
@@ -130,6 +119,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setBackground() {
+
+        viewPager.adapter = pagerAdapter
 
         var firstColor = ""
         var secondColor = ""
