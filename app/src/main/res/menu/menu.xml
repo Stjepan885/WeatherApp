@@ -4,7 +4,11 @@
 
     <item
         android:id="@+id/action_search"
+        android:checkable="true"
         android:icon="@drawable/ic_baseline_search_24"
-        app:showAsAction="always"
-        android:title="Search" />
+        android:title="Search"
+        android:visible="true"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
+        app:showAsAction="always" />
+
 </menu>

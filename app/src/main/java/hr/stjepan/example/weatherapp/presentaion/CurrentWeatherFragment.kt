@@ -22,13 +22,14 @@ class CurrentWeatherFragment : Fragment() {
     lateinit var textWeatherType: TextView
     lateinit var textCurrentTemperature: TextView
     lateinit var imageIcon: ImageView
-    private lateinit var viewMainModel: MainViewModel
 
     companion object {
         fun newInstance() = CurrentWeatherFragment()
     }
 
     private lateinit var viewModel: CurrentWeatherViewModel
+    private lateinit var viewMainModel: MainViewModel
+    private lateinit var searchViewModel: SearchViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,27 +37,24 @@ class CurrentWeatherFragment : Fragment() {
     ): View? {
         var view = inflater.inflate(R.layout.fragment_current_weather, container, false)
 
+        viewMainModel = ViewModelProvider(activity!!).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(activity!!).get(CurrentWeatherViewModel::class.java)
+        searchViewModel = ViewModelProvider(activity!!).get(SearchViewModel::class.java)
+
         textCurrentTime = view.findViewById(R.id.textViewCurrentTime)
         textHumidity = view.findViewById(R.id.textViewHumidity)
         textWeatherType = view.findViewById(R.id.textViewWeatherType)
         textCurrentTemperature = view.findViewById(R.id.textViewCurrentTemperature)
         imageIcon = view.findViewById(R.id.imageViewWeatherIcon)
 
-        viewMainModel = ViewModelProvider(activity!!).get(MainViewModel::class.java)
-
-        //checkWeather()
-
-        return view
-    }
-
-    private fun checkWeather() {
-        viewModel = ViewModelProvider(this).get(CurrentWeatherViewModel::class.java)
-
+        searchViewModel.selectedCity.observe(viewLifecycleOwner, Observer {
+            viewModel.setLocation(it.coords.lat, it.coords.lon)
+        })
         viewModel.weather.observe(viewLifecycleOwner, Observer {
-            println("DEBUG: $it")
             setUiText(it)
         })
-        viewModel.setLocation(45.814,15.978)
+
+        return view
     }
 
     private fun setUiText(it: WeatherResponse) {
@@ -71,24 +69,12 @@ class CurrentWeatherFragment : Fragment() {
         viewMainModel.selectItem(time.toString(), type.toString())
 
         setIcon(it.weather[0].weatherIcon)
-
     }
 
     private fun setIcon(weatherIcon: String) {
         val url = "https://openweathermap.org/img/wn/$weatherIcon@2x.png"
         Log.e("image", "url $url")
         Picasso.get().load(url).into(imageIcon)
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(CurrentWeatherViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
     }
 
 }

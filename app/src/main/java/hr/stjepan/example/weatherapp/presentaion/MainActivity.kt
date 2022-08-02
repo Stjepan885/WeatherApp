@@ -8,23 +8,27 @@ import android.view.Menu
 import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentManager
+import androidx.appcompat.widget.SearchView
+import androidx.fragment.app.commit
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import hr.stjepan.example.weatherapp.R
-import hr.stjepan.example.weatherapp.data.model.Day
 import hr.stjepan.example.weatherapp.domain.PagerAdapter
 
 
 class MainActivity : AppCompatActivity() {
-    lateinit var viewModel: MainViewModel
+    lateinit var mainViewModel: MainViewModel
+    lateinit var searchViewModel: SearchViewModel
     lateinit var currentWeatherFragment: CurrentWeatherFragment
+    lateinit var searchFragment: SearchFragment
 
     lateinit var pagerAdapter: PagerAdapter
     lateinit var tabLayout: TabLayout
     lateinit var viewPager: ViewPager
+
+    lateinit var searchView:SearchView
 
     lateinit var but: Button
 
@@ -33,8 +37,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        searchViewModel = ViewModelProvider(this).get(SearchViewModel::class.java)
 
         currentWeatherFragment = CurrentWeatherFragment()
+        searchFragment = SearchFragment()
 
         but = findViewById(R.id.button)
         tabLayout = findViewById(R.id.tab_layout)
@@ -45,10 +51,14 @@ class MainActivity : AppCompatActivity() {
             .add(R.id.linearLayout, currentWeatherFragment)
             .commitNow()
 
+
+
         pagerAdapter = PagerAdapter(supportFragmentManager)
 
         viewPager.adapter = pagerAdapter
         tabLayout.setupWithViewPager(viewPager)
+
+
 /*
         tabLayout.addOnTabSelectedListener(
             object : TabLayout.OnTabSelectedListener {
@@ -64,13 +74,47 @@ class MainActivity : AppCompatActivity() {
  */
 
 
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-        viewModel.selectedItem.observe(this, Observer {
+        mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        mainViewModel.selectedItem.observe(this, Observer {
             setBackground(it.first, it.second)
         })
 
+        searchViewModel.selectedItem.observe(this, Observer {
+            Log.e("Search observer" , "$it ")
+        })
+        Log.e("Search observer fragment", "${searchViewModel.toString()} ")
+
         but.setOnClickListener(View.OnClickListener {
-            setBackground()
+            //setBackground()
+            if (searchFragment.isVisible) {
+                supportFragmentManager.commit {
+                    setCustomAnimations(
+                        R.anim.fade_in,
+                        R.anim.fade_out
+                    )
+                        .detach(searchFragment)
+                }
+
+            } else if (searchFragment.isDetached) {
+                supportFragmentManager.commit {
+                    setCustomAnimations(
+                        R.anim.fade_in,
+                        R.anim.fade_out
+                    )
+                        .attach(searchFragment)
+                }
+
+            } else if (!searchFragment.isAdded) {
+                supportFragmentManager.commit {
+                    setCustomAnimations(
+                        R.anim.fade_in,
+                        R.anim.fade_out
+                    )
+                    replace(R.id.fragment_search, searchFragment)
+                    addToBackStack(null)
+                }
+
+            }
         })
 
     }
@@ -88,12 +132,12 @@ class MainActivity : AppCompatActivity() {
                 firstColor = R.color.clear_up_night
                 secondColor = R.color.clear_down_night
             }
-            3,4,9,10,11 -> {
+            3, 4, 9, 10, 11 -> {
                 firstColor = R.color.cloudy_up
                 secondColor = R.color.cloudy_down
             }
 
-            13,50 -> {
+            13, 50 -> {
                 firstColor = R.color.snow_up
                 secondColor = R.color.snow_down
             }
@@ -142,7 +186,7 @@ class MainActivity : AppCompatActivity() {
 
             3 -> {
                 firstColor = "#777b86"
-                secondColor ="#5393b2"
+                secondColor = "#5393b2"
             }
 
             else -> {
@@ -154,7 +198,7 @@ class MainActivity : AppCompatActivity() {
 
 
         i++
-        Log.e("i" , " $i ")
+        Log.e("i", " $i ")
 
 
         val gradientDrawable = GradientDrawable(
@@ -170,8 +214,60 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        val inflater = menuInflater
-        inflater.inflate(R.menu.menu, menu)
-        return super.onCreateOptionsMenu(menu)
+        menuInflater.inflate(R.menu.menu,menu)
+        val menuItem = menu.findItem(R.id.action_search)
+        Log.e("sdas", menuItem.toString())
+        searchView = menuItem.actionView as SearchView
+
+
+        searchView.setOnCloseListener(SearchView.OnCloseListener {
+
+            Log.e("searchView" , "closed")
+            supportFragmentManager.commit {
+                setCustomAnimations(
+                    R.anim.fade_in,
+                    R.anim.fade_out
+                )
+                    .remove(searchFragment)
+
+            }
+            false
+        })
+
+        searchView.setOnSearchClickListener {
+            Log.e("searchView" , "open")
+            supportFragmentManager.commit {
+                setCustomAnimations(
+                    R.anim.fade_in,
+                    R.anim.fade_out
+                )
+                replace(R.id.fragment_search, searchFragment)
+                addToBackStack(null)
+            }
+        }
+
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                Log.e("onQueryTextChange" , "$newText")
+                searchViewModel.selectedItem(newText.toString())
+                return true
+            }
+
+        })
+
+
+
+        return true
+    }
+
+    override fun onBackPressed() {
+
+        searchView.onActionViewCollapsed()
+        super.onBackPressed()
     }
 }
