@@ -18,7 +18,6 @@ import hr.stjepan.example.weatherapp.data.model.WeatherResponse
 class CurrentWeatherFragment : Fragment() {
 
     lateinit var textHumidity: TextView
-    lateinit var textCurrentTime: TextView
     lateinit var textWeatherType: TextView
     lateinit var textCurrentTemperature: TextView
     lateinit var imageIcon: ImageView
@@ -41,7 +40,6 @@ class CurrentWeatherFragment : Fragment() {
         viewModel = ViewModelProvider(activity!!).get(CurrentWeatherViewModel::class.java)
         searchViewModel = ViewModelProvider(activity!!).get(SearchViewModel::class.java)
 
-        textCurrentTime = view.findViewById(R.id.textViewCurrentTime)
         textHumidity = view.findViewById(R.id.textViewHumidity)
         textWeatherType = view.findViewById(R.id.textViewWeatherType)
         textCurrentTemperature = view.findViewById(R.id.textViewCurrentTemperature)

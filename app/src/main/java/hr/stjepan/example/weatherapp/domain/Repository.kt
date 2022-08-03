@@ -47,7 +47,7 @@ object Repository {
                         val weather = MyRetrofitBuilder.weatherApiService.getWeekWeatherData(
                             lat,
                             long,
-                            7,
+                            8,
                             BuildConfig.apiKey,
                             "metric"
                         )

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.compose.ui.text.capitalize
 import androidx.recyclerview.widget.RecyclerView
 import hr.stjepan.example.weatherapp.R
 import hr.stjepan.example.weatherapp.data.model.Day
@@ -24,12 +25,13 @@ class WeatherDayAdapter(c: Context, items: List<Day>): RecyclerView.Adapter<Weat
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView), View.OnClickListener{
         val hourTV: TextView
         val tempTV: TextView
+        val cloudsTV: TextView
 
 
         init {
-            hourTV = itemView.findViewById(R.id.textViewItemTime1)
-            Log.e("Stjepan", "$hourTV")
-            tempTV = itemView.findViewById(R.id.textViewItemTemperature1)
+            hourTV = itemView.findViewById(R.id.textViewItemTime)
+            tempTV = itemView.findViewById(R.id.textViewItemTemperature)
+            cloudsTV = itemView.findViewById(R.id.textViewItemClouds)
         }
 
         override fun onClick(p: View) {
@@ -46,13 +48,16 @@ class WeatherDayAdapter(c: Context, items: List<Day>): RecyclerView.Adapter<Weat
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val time = holder.hourTV
         val temp = holder.tempTV
+        val clouds = holder.cloudsTV
 
-        val simpleDateFormat = SimpleDateFormat("dd/MM/yyyy")
-        val dateString = simpleDateFormat.format(items[position].day)
+        val simpleDateFormat = SimpleDateFormat("EEE")
+        val dateString = simpleDateFormat.format(items[position].day*1000)
 
         time.text = dateString
 
-        temp.text = items[position].temp.day.toString()
+        temp.text = items[position].temp.day.toInt().toString() + "°"
+
+        clouds.text = items[position].dayWeather[0].description
     }
 
     override fun getItemCount(): Int {

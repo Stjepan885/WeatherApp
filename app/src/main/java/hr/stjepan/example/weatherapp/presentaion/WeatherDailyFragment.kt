@@ -30,6 +30,7 @@ class WeatherDailyFragment : Fragment() {
     }
 
     private lateinit var viewModel: WeatherDailyViewModel
+    private lateinit var searchViewModel: SearchViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,12 +47,20 @@ class WeatherDailyFragment : Fragment() {
 
         weatherDayViewModel.weekWeather.observe(viewLifecycleOwner, Observer {
             itemArrayList.addAll(it.list)
+            itemArrayList.removeAt(0)
             Log.e("Stjepan" , "$itemArrayList")
             Log.e("Stjpan", " ${itemArrayList.size}")
+            recyclerView.adapter = adapter
+        })
+
+        searchViewModel = ViewModelProvider(activity!!).get(SearchViewModel::class.java)
+
+        searchViewModel.selectedCity.observe(viewLifecycleOwner, Observer {
+            weatherDayViewModel.setWeekLocation(it.coords.lat,it.coords.lon)
         })
 
         //Day(day=1659006000, temp=DayTemps(temp=300.9, temp_min=291.9, temp_max=305.39), dayWeather=[DayWeather(type=Clear, description=sky is clear, icon=01d)])
-
+/*
         val dayWeather:ArrayList<DayWeather> = ArrayList()
         dayWeather.add(DayWeather("clear", "sky", "01d"))
         val temp = Tempera(300.9, 291.9, 305.39)
@@ -63,6 +72,8 @@ class WeatherDailyFragment : Fragment() {
         itemArrayList.add(item)
         itemArrayList.add(item)
         itemArrayList.add(item)
+
+ */
 
         //weatherDayViewModel.setWeekLocation(45.814,15.978)
         recyclerView.adapter = adapter

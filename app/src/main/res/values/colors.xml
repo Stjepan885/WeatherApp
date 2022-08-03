@@ -20,4 +20,6 @@
     <color name="snow_up">#777b86</color>
     <color name="snow_down">#5393b2</color>
 
+    <color name="city_highlight">#7A7575</color>
+
 </resources>

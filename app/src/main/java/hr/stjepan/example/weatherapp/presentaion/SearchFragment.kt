@@ -3,12 +3,8 @@ package hr.stjepan.example.weatherapp.presentaion
 import android.content.Context
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.util.Log
 import android.view.*
-import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
@@ -29,12 +25,8 @@ class SearchFragment() : Fragment(), SelectedCityListener {
 
     var context = this
 
-    companion object {
-        fun newInstance() = SearchFragment()
-    }
 
     private lateinit var viewModel: SearchViewModel
-    private lateinit var searchViewModel: SearchViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,10 +38,14 @@ class SearchFragment() : Fragment(), SelectedCityListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProvider(requireActivity()).get(SearchViewModel::class.java)
-        viewModel.selectedItem.observe(viewLifecycleOwner, Observer {
-            onQueryTextChange(it.toString())
-        })
+        viewModel = ViewModelProvider(requireActivity())[SearchViewModel::class.java]
+        viewModel.selectedItem.observe(viewLifecycleOwner) {
+            if (it == "first" && displayArrayList.size > 0) {
+                viewModel.selectedCity(displayArrayList[0])
+            } else {
+                onQueryTextChange(it.toString())
+            }
+        }
 
         adapter = CityAdapter(requireActivity(), displayArrayList, context)
 
@@ -57,34 +53,25 @@ class SearchFragment() : Fragment(), SelectedCityListener {
         recyclerView.layoutManager =
             LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
 
-        val jsonFileString = getJsonDataFromAsset(requireContext(), "cities")
+        val jsonFileString = getJsonDataFromAsset(requireContext())
         val gson = Gson()
         val listPersonType = object : TypeToken<List<Cities>>() {}.type
-        var cities: List<Cities> = gson.fromJson(jsonFileString, listPersonType)
-        //cities.forEachIndexed { idx, person -> Log.i("data", "> Item $idx:\n$person") }
+        val cities: List<Cities> = gson.fromJson(jsonFileString, listPersonType)
 
         itemArrayList.clear()
         itemArrayList.addAll(cities)
         displayArrayList.addAll(cities)
-        itemArrayList.sortWith(Comparator { lhs, rhs ->
+        itemArrayList.sortWith { lhs, rhs ->
             if (lhs.cityName < rhs.cityName) -1 else 1
-        })
-        displayArrayList.sortWith(Comparator { lhs, rhs ->
+        }
+        displayArrayList.sortWith { lhs, rhs ->
             if (lhs.cityName < rhs.cityName) -1 else 1
-        })
+        }
 
         recyclerView.adapter = adapter
-        setHasOptionsMenu(true)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        //viewModel = ViewModelProvider(this).get(SearchViewModel::class.java)
-    }
-
-    fun onQueryTextChange(item: String) {
-
-        Log.e("onQueryTextChange Fragment", "$item")
+    private fun onQueryTextChange(item: String) {
 
         if (item.isNotEmpty()) {
             displayArrayList.clear()
@@ -102,10 +89,10 @@ class SearchFragment() : Fragment(), SelectedCityListener {
     }
 
 
-    fun getJsonDataFromAsset(context: Context, fileName: String): String? {
+    private fun getJsonDataFromAsset(context: Context): String? {
         val jsonString: String
         try {
-            jsonString = context.assets.open(fileName).bufferedReader().use { it.readText() }
+            jsonString = context.assets.open("cities").bufferedReader().use { it.readText() }
         } catch (ioException: IOException) {
             ioException.printStackTrace()
             return null
@@ -114,7 +101,7 @@ class SearchFragment() : Fragment(), SelectedCityListener {
     }
 
     override fun onClick(coords: Cities) {
-       viewModel.selectedCity(coords)
+        viewModel.selectedCity(coords)
     }
 
 }

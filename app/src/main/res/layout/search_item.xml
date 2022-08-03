@@ -8,16 +8,18 @@
     app:cardCornerRadius="1dp"
     app:strokeColor="@color/black"
     app:strokeWidth="3dp"
-    android:layout_margin="16dp">
+
+    android:background="@color/white">
 
 
     <TextView
-        android:layout_margin="9dp"
+        android:layout_margin="25dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Bla"
         android:textSize="20sp"
         android:id="@+id/city_name"
+        android:textColor="@color/black"
         />
 
 </LinearLayout>

@@ -27,9 +27,9 @@ class WeatherWeekAdapter(c: Context, items: List<Day>): RecyclerView.Adapter<Wea
 
 
         init {
-            hourTV = itemView.findViewById(R.id.textViewItemTime1)
+            hourTV = itemView.findViewById(R.id.textViewItemTime)
             Log.e("Stjepan", "$hourTV")
-            tempTV = itemView.findViewById(R.id.textViewItemTemperature1)
+            tempTV = itemView.findViewById(R.id.textViewItemTemperature)
         }
 
         override fun onClick(p: View) {
@@ -47,7 +47,7 @@ class WeatherWeekAdapter(c: Context, items: List<Day>): RecyclerView.Adapter<Wea
         val time = holder.hourTV
         val temp = holder.tempTV
 
-        val simpleDateFormat = SimpleDateFormat("dd/MM/yyyy")
+        val simpleDateFormat = SimpleDateFormat("dd/MMMM/yyyy")
         val dateString = simpleDateFormat.format(items[position].day)
 
         time.text = dateString
