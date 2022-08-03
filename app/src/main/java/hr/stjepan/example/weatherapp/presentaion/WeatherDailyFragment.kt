@@ -2,7 +2,6 @@ package hr.stjepan.example.weatherapp.presentaion
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,9 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import hr.stjepan.example.weatherapp.R
 import hr.stjepan.example.weatherapp.data.model.Day
-import hr.stjepan.example.weatherapp.data.model.DayWeather
-import hr.stjepan.example.weatherapp.data.model.Tempera
 import hr.stjepan.example.weatherapp.domain.WeatherDayAdapter
+import hr.stjepan.example.weatherapp.presentaion.viewModel.WeatherDailyViewModel
 
 class WeatherDailyFragment : Fragment() {
 
@@ -22,15 +20,13 @@ class WeatherDailyFragment : Fragment() {
     var itemArrayList: ArrayList<Day> = ArrayList()
 
     private lateinit var weatherDayViewModel: WeatherDailyViewModel
+    private lateinit var searchViewModel: SearchViewModel
 
     var context = this
 
     companion object {
         fun newInstance() = WeatherDailyFragment()
     }
-
-    private lateinit var viewModel: WeatherDailyViewModel
-    private lateinit var searchViewModel: SearchViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,8 +44,8 @@ class WeatherDailyFragment : Fragment() {
         weatherDayViewModel.weekWeather.observe(viewLifecycleOwner, Observer {
             itemArrayList.addAll(it.list)
             itemArrayList.removeAt(0)
-            Log.e("Stjepan" , "$itemArrayList")
-            Log.e("Stjpan", " ${itemArrayList.size}")
+            //Log.e("Stjepan" , "$itemArrayList")
+            //Log.e("Stjpan", " ${itemArrayList.size}")
             recyclerView.adapter = adapter
         })
 
@@ -83,14 +79,14 @@ class WeatherDailyFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(WeatherDailyViewModel::class.java)
+        //viewModel = ViewModelProvider(this).get(WeatherDailyViewModel::class.java)
         // TODO: Use the ViewModel
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProvider(activity!!).get(WeatherDailyViewModel::class.java)
+        //viewModel = ViewModelProvider(activity!!).get(WeatherDailyViewModel::class.java)
 
     }
 

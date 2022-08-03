@@ -31,7 +31,6 @@ class CityAdapter(c: Context, items: List<Cities>, selectedCityListener: Selecte
         }
 
         override fun onClick(p: View) {
-            Log.e("on click", "city")
         }
     }
 

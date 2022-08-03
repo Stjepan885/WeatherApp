@@ -8,7 +8,7 @@ data class HourWeatherModel(
     @SerializedName("list")
     var listHour: ArrayList<Hour>,
 
-    ){
+    ) {
 }
 
 data class City(
@@ -18,7 +18,7 @@ data class City(
     val coords: CoordCityHour,
     @SerializedName("id")
     val idCity: Int
-){
+) {
 
 }
 
@@ -27,7 +27,7 @@ data class CoordCityHour(
     val lon: Double,
     @SerializedName("lat")
     val lat: Double,
-){
+) {
     override fun toString(): String {
         return "Coord(lon=$lon, lat=$lat)"
     }
@@ -37,8 +37,10 @@ data class Hour(
     @SerializedName("main")
     val temps: Temperature,
     @SerializedName("weather")
-    val dayWeather: ArrayList<DayWeather>
-){
+    val dayWeather: ArrayList<DayWeather>,
+    @SerializedName("dt")
+    val day: Long
+) {
 
 }
 

@@ -176,7 +176,6 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                Log.e("onQueryTextChange", "$newText")
                 searchViewModel.selectedItem(newText.toString())
                 return true
             }

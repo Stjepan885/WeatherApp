@@ -1,20 +1,19 @@
 package hr.stjepan.example.weatherapp.domain
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.compose.ui.text.capitalize
 import androidx.recyclerview.widget.RecyclerView
 import hr.stjepan.example.weatherapp.R
 import hr.stjepan.example.weatherapp.data.model.Day
 import java.text.SimpleDateFormat
 
-class WeatherDayAdapter(c: Context, items: List<Day>): RecyclerView.Adapter<WeatherDayAdapter.ViewHolder>(){
+class WeatherDayAdapter(c: Context, items: List<Day>) :
+    RecyclerView.Adapter<WeatherDayAdapter.ViewHolder>() {
 
-    var items: List<Day>
+    private var items: List<Day>
     var context: Context
 
     init {
@@ -22,7 +21,8 @@ class WeatherDayAdapter(c: Context, items: List<Day>): RecyclerView.Adapter<Weat
         context = c
     }
 
-    inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView), View.OnClickListener{
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
+        View.OnClickListener {
         val hourTV: TextView
         val tempTV: TextView
         val cloudsTV: TextView
@@ -51,12 +51,10 @@ class WeatherDayAdapter(c: Context, items: List<Day>): RecyclerView.Adapter<Weat
         val clouds = holder.cloudsTV
 
         val simpleDateFormat = SimpleDateFormat("EEE")
-        val dateString = simpleDateFormat.format(items[position].day*1000)
+        val dateString = simpleDateFormat.format(items[position].day * 1000)
 
         time.text = dateString
-
         temp.text = items[position].temp.day.toInt().toString() + "°"
-
         clouds.text = items[position].dayWeather[0].description
     }
 

@@ -17,9 +17,9 @@ class PagerAdapter(fm:FragmentManager):FragmentPagerAdapter(fm) {
     override fun getItem(position: Int): Fragment {
         Log.e("Stjepan", "$position")
         return when (position) {
-            0 -> WeatherDailyFragment()
+            0 -> WeatherHourlyFragment()
             1 -> WeatherDailyFragment()
-            else -> WeatherDailyFragment()
+            else -> WeatherHourlyFragment()
         }
     }
 

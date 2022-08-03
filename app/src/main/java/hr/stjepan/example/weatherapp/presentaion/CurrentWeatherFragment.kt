@@ -71,7 +71,6 @@ class CurrentWeatherFragment : Fragment() {
 
     private fun setIcon(weatherIcon: String) {
         val url = "https://openweathermap.org/img/wn/$weatherIcon@2x.png"
-        Log.e("image", "url $url")
         Picasso.get().load(url).into(imageIcon)
     }
 

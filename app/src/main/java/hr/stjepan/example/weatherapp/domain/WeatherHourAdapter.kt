@@ -9,11 +9,12 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import hr.stjepan.example.weatherapp.R
 import hr.stjepan.example.weatherapp.data.model.Day
+import hr.stjepan.example.weatherapp.data.model.Hour
 import java.text.SimpleDateFormat
 
-class WeatherWeekAdapter(c: Context, items: List<Day>): RecyclerView.Adapter<WeatherWeekAdapter.ViewHolder>(){
+class WeatherHourAdapter(c: Context, items: List<Hour>): RecyclerView.Adapter<WeatherHourAdapter.ViewHolder>(){
 
-    var items: List<Day>
+    var items: List<Hour>
     var context: Context
 
     init {
@@ -24,12 +25,12 @@ class WeatherWeekAdapter(c: Context, items: List<Day>): RecyclerView.Adapter<Wea
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView), View.OnClickListener{
         val hourTV: TextView
         val tempTV: TextView
-
+        val cloudsTV: TextView
 
         init {
             hourTV = itemView.findViewById(R.id.textViewItemTime)
-            Log.e("Stjepan", "$hourTV")
             tempTV = itemView.findViewById(R.id.textViewItemTemperature)
+            cloudsTV = itemView.findViewById(R.id.textViewItemClouds)
         }
 
         override fun onClick(p: View) {
@@ -46,13 +47,14 @@ class WeatherWeekAdapter(c: Context, items: List<Day>): RecyclerView.Adapter<Wea
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val time = holder.hourTV
         val temp = holder.tempTV
+        val clouds = holder.cloudsTV
 
-        val simpleDateFormat = SimpleDateFormat("dd/MMMM/yyyy")
-        val dateString = simpleDateFormat.format(items[position].day)
+        val simpleDateFormat = SimpleDateFormat("HH")
+        val dateString = simpleDateFormat.format(items[position].day * 1000)
 
         time.text = dateString
-
-        temp.text = items[position].temp.day.toString()
+        temp.text = items[position].temps.temp.toInt().toString() + "°"
+        clouds.text = items[position].dayWeather[0].description
     }
 
     override fun getItemCount(): Int {
