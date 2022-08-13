@@ -13,8 +13,6 @@ import androidx.recyclerview.widget.RecyclerView
 import hr.stjepan.example.weatherapp.R
 import hr.stjepan.example.weatherapp.data.model.Hour
 import hr.stjepan.example.weatherapp.domain.WeatherHourAdapter
-import hr.stjepan.example.weatherapp.presentaion.viewModel.SearchViewModel
-import hr.stjepan.example.weatherapp.presentaion.viewModel.WeatherHourlyViewModel
 import hr.stjepan.example.weatherapp.presentaion.viewModel.WeatherViewModel
 
 class WeatherHourlyFragment : Fragment() {
@@ -22,10 +20,6 @@ class WeatherHourlyFragment : Fragment() {
     private lateinit var adapter: WeatherHourAdapter
     var itemArrayList: ArrayList<Hour> = ArrayList()
 
-    private lateinit var weatherDayViewModel: WeatherHourlyViewModel
-    private lateinit var searchViewModel: SearchViewModel
-
-    //weather view model
     private lateinit var weatherViewModel: WeatherViewModel
 
     var context = this
@@ -46,21 +40,18 @@ class WeatherHourlyFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(activity,
             LinearLayoutManager.HORIZONTAL,false)
 
-        weatherDayViewModel = ViewModelProvider(activity!!).get(WeatherHourlyViewModel::class.java)
-        searchViewModel = ViewModelProvider(activity!!).get(SearchViewModel::class.java)
+        weatherViewModel = ViewModelProvider(activity!!).get(WeatherViewModel::class.java)
 
-        weatherDayViewModel.dayWeather.observe(viewLifecycleOwner, Observer {
+        weatherViewModel.dayWeather.observe(viewLifecycleOwner, Observer {
+            itemArrayList.clear()
             itemArrayList.addAll(it.listHour)
             //itemArrayList.removeAt(0)
-            Log.e("Stjepan vure" , "$it")
-            Log.e("Stjpan vure", " ${itemArrayList.size}")
+            //Log.e("Stjepan vure" , "$it")
+            //Log.e("Stjpan vure", " ${itemArrayList.size}")
+
+            Log.e("Hourly ", " ${itemArrayList.size}")
+
             recyclerView.adapter = adapter
-        })
-
-        searchViewModel.selectedCity.observe(viewLifecycleOwner, Observer {
-
-            Log.e("Stjepan", "$it")
-            weatherDayViewModel.setDayLocation(it.coords.lat,it.coords.lon)
         })
 
         recyclerView.adapter = adapter

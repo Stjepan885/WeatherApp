@@ -18,15 +18,14 @@
         android:translationZ="90dp"
         />
 
-    <com.google.android.material.card.MaterialCardView
+    <androidx.cardview.widget.CardView
         android:id="@+id/materialCardView1"
         android:layout_width="00dp"
         android:layout_height="0dp"
         android:layout_margin="15dp"
         app:cardBackgroundColor="#00FFFFFF"
-        app:cardCornerRadius="15dp"
-        app:strokeColor="#32000000"
-        app:strokeWidth="1dp"
+
+        android:outlineProvider="none"
 
         app:layout_constraintBottom_toTopOf="@+id/materialCardView"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -47,7 +46,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-    </com.google.android.material.card.MaterialCardView>
+    </androidx.cardview.widget.CardView>
 
 
     <com.google.android.material.card.MaterialCardView
@@ -57,17 +56,18 @@
         android:layout_margin="15dp"
         app:cardBackgroundColor="#00FFFFFF"
 
-        app:cardCornerRadius="15dp"
-        app:layout_constraintBottom_toTopOf="@+id/view_pager"
+        android:outlineProvider="none"
 
+
+        app:layout_constraintBottom_toTopOf="@+id/view_pager"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-
         app:layout_constraintTop_toBottomOf="@+id/materialCardView1"
-
         app:layout_constraintVertical_weight="0.08"
         app:strokeColor="#32000000"
-        app:strokeWidth="2dp">
+
+        app:strokeWidth="2dp"
+        >
 
 
         <com.google.android.material.tabs.TabLayout

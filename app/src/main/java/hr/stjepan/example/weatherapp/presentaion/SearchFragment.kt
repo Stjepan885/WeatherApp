@@ -2,6 +2,7 @@ package hr.stjepan.example.weatherapp.presentaion
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -18,14 +19,12 @@ import java.io.IOException
 
 class SearchFragment() : Fragment(), SelectedCityListener {
 
-    private lateinit var adapter: CityAdapter
     var itemArrayList: ArrayList<Cities> = ArrayList()
     var displayArrayList: ArrayList<Cities> = ArrayList()
+    private lateinit var adapter: CityAdapter
     lateinit var recyclerView: RecyclerView
 
-
     var context = this
-
 
     private lateinit var searchViewModel: SearchViewModel
 
@@ -33,7 +32,6 @@ class SearchFragment() : Fragment(), SelectedCityListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         return inflater.inflate(R.layout.fragment_search, container, false)
     }
 
@@ -74,7 +72,6 @@ class SearchFragment() : Fragment(), SelectedCityListener {
     }
 
     private fun onQueryTextChange(item: String) {
-
         if (item.isNotEmpty()) {
             displayArrayList.clear()
             itemArrayList.forEach {
@@ -104,6 +101,7 @@ class SearchFragment() : Fragment(), SelectedCityListener {
 
     override fun onClick(coords: Cities) {
         searchViewModel.selectedCity(coords)
+        Log.e("Stajepn", "$coords")
     }
 
 }

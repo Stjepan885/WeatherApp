@@ -2,6 +2,7 @@ package hr.stjepan.example.weatherapp.presentaion
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,16 +13,14 @@ import androidx.recyclerview.widget.RecyclerView
 import hr.stjepan.example.weatherapp.R
 import hr.stjepan.example.weatherapp.data.model.Day
 import hr.stjepan.example.weatherapp.domain.WeatherDayAdapter
-import hr.stjepan.example.weatherapp.presentaion.viewModel.SearchViewModel
-import hr.stjepan.example.weatherapp.presentaion.viewModel.WeatherDailyViewModel
+import hr.stjepan.example.weatherapp.presentaion.viewModel.WeatherViewModel
 
 class WeatherDailyFragment : Fragment() {
 
     private lateinit var adapter: WeatherDayAdapter
     var itemArrayList: ArrayList<Day> = ArrayList()
 
-    private lateinit var weatherDayViewModel: WeatherDailyViewModel
-    private lateinit var searchViewModel: SearchViewModel
+    private lateinit var weatherViewModel: WeatherViewModel
 
     var context = this
 
@@ -40,21 +39,16 @@ class WeatherDailyFragment : Fragment() {
         val recyclerView: RecyclerView = rootView.findViewById(R.id.recycler_day)
         recyclerView.layoutManager = LinearLayoutManager(activity,LinearLayoutManager.HORIZONTAL,false)
 
-        weatherDayViewModel = ViewModelProvider(activity!!).get(WeatherDailyViewModel::class.java)
+        weatherViewModel = ViewModelProvider(activity!!).get(WeatherViewModel::class.java)
 
-        weatherDayViewModel.weekWeather.observe(viewLifecycleOwner, Observer {
+        weatherViewModel.weekWeather.observe(viewLifecycleOwner, Observer {
+            itemArrayList.clear()
             itemArrayList.addAll(it.list)
             itemArrayList.removeAt(0)
-            //Log.e("Stjepan" , "$itemArrayList")
-            //Log.e("Stjpan", " ${itemArrayList.size}")
+            Log.e("Daily ", " ${itemArrayList.size}")
             recyclerView.adapter = adapter
         })
 
-        searchViewModel = ViewModelProvider(activity!!).get(SearchViewModel::class.java)
-
-        searchViewModel.selectedCity.observe(viewLifecycleOwner, Observer {
-            weatherDayViewModel.setWeekLocation(it.coords.lat,it.coords.lon)
-        })
 
         //Day(day=1659006000, temp=DayTemps(temp=300.9, temp_min=291.9, temp_max=305.39), dayWeather=[DayWeather(type=Clear, description=sky is clear, icon=01d)])
 /*

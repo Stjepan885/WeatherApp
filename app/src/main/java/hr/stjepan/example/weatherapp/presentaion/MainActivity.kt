@@ -9,6 +9,7 @@ import android.view.Menu
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.FragmentContainer
@@ -18,13 +19,17 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import hr.stjepan.example.weatherapp.R
+import hr.stjepan.example.weatherapp.data.model.Cities
+import hr.stjepan.example.weatherapp.data.model.CoordCity
 import hr.stjepan.example.weatherapp.domain.PagerAdapter
 import hr.stjepan.example.weatherapp.presentaion.viewModel.MainViewModel
 import hr.stjepan.example.weatherapp.presentaion.viewModel.SearchViewModel
+import hr.stjepan.example.weatherapp.presentaion.viewModel.WeatherViewModel
 
 class MainActivity : AppCompatActivity() {
     lateinit var mainViewModel: MainViewModel
     lateinit var searchViewModel: SearchViewModel
+    lateinit var weatherViewModel: WeatherViewModel
 
     lateinit var currentWeatherFragment: CurrentWeatherFragment
     lateinit var searchFragment: SearchFragment
@@ -73,6 +78,12 @@ class MainActivity : AppCompatActivity() {
                 .remove(searchFragment)
                 .commitNow()
         })
+
+        val actionBar = supportActionBar
+
+        weatherViewModel = ViewModelProvider(this)[WeatherViewModel::class.java]
+        weatherViewModel.setLocation(45.814442, 15.97798)
+        actionBar?.title = "Zagreb"
 
     }
 
