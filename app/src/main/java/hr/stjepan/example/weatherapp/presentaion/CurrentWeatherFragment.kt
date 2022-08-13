@@ -2,7 +2,6 @@ package hr.stjepan.example.weatherapp.presentaion
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +12,10 @@ import androidx.lifecycle.Observer
 import com.squareup.picasso.Picasso
 import hr.stjepan.example.weatherapp.R
 import hr.stjepan.example.weatherapp.data.model.WeatherResponse
+import hr.stjepan.example.weatherapp.presentaion.viewModel.CurrentWeatherViewModel
+import hr.stjepan.example.weatherapp.presentaion.viewModel.MainViewModel
+import hr.stjepan.example.weatherapp.presentaion.viewModel.SearchViewModel
+import hr.stjepan.example.weatherapp.presentaion.viewModel.WeatherViewModel
 
 
 class CurrentWeatherFragment : Fragment() {
@@ -22,13 +25,12 @@ class CurrentWeatherFragment : Fragment() {
     lateinit var textCurrentTemperature: TextView
     lateinit var imageIcon: ImageView
 
-    companion object {
-        fun newInstance() = CurrentWeatherFragment()
-    }
-
     private lateinit var viewModel: CurrentWeatherViewModel
     private lateinit var viewMainModel: MainViewModel
     private lateinit var searchViewModel: SearchViewModel
+
+    //weather view model
+    private lateinit var weatherViewModel: WeatherViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,18 +38,27 @@ class CurrentWeatherFragment : Fragment() {
     ): View? {
         var view = inflater.inflate(R.layout.fragment_current_weather, container, false)
 
-        viewMainModel = ViewModelProvider(activity!!).get(MainViewModel::class.java)
-        viewModel = ViewModelProvider(activity!!).get(CurrentWeatherViewModel::class.java)
-        searchViewModel = ViewModelProvider(activity!!).get(SearchViewModel::class.java)
-
         textHumidity = view.findViewById(R.id.textViewHumidity)
         textWeatherType = view.findViewById(R.id.textViewWeatherType)
         textCurrentTemperature = view.findViewById(R.id.textViewCurrentTemperature)
         imageIcon = view.findViewById(R.id.imageViewWeatherIcon)
 
+        viewMainModel = ViewModelProvider(activity!!).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(activity!!).get(CurrentWeatherViewModel::class.java)
+        searchViewModel = ViewModelProvider(activity!!).get(SearchViewModel::class.java)
+
+        //weather view model
+        weatherViewModel = ViewModelProvider(activity!!)[WeatherViewModel::class.java]
+
         searchViewModel.selectedCity.observe(viewLifecycleOwner, Observer {
-            viewModel.setLocation(it.coords.lat, it.coords.lon)
+            //viewModel.setLocation(it.coords.lat, it.coords.lon)
+            weatherViewModel.setLocation(it.coords.lat, it.coords.lon)
         })
+
+        weatherViewModel.currentWeather.observe(viewLifecycleOwner, Observer {
+            setUiText(it)
+        })
+
         viewModel.weather.observe(viewLifecycleOwner, Observer {
             setUiText(it)
         })

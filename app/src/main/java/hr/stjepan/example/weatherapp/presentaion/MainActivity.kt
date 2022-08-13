@@ -9,20 +9,23 @@ import android.view.Menu
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
-import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
-import androidx.fragment.app.commit
+import androidx.fragment.app.FragmentContainer
+import androidx.fragment.app.FragmentContainerView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import hr.stjepan.example.weatherapp.R
 import hr.stjepan.example.weatherapp.domain.PagerAdapter
+import hr.stjepan.example.weatherapp.presentaion.viewModel.MainViewModel
+import hr.stjepan.example.weatherapp.presentaion.viewModel.SearchViewModel
 
 class MainActivity : AppCompatActivity() {
     lateinit var mainViewModel: MainViewModel
     lateinit var searchViewModel: SearchViewModel
+
     lateinit var currentWeatherFragment: CurrentWeatherFragment
     lateinit var searchFragment: SearchFragment
 
@@ -35,7 +38,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        searchViewModel = ViewModelProvider(this).get(SearchViewModel::class.java)
+
+        searchViewModel = ViewModelProvider(this)[SearchViewModel::class.java]
 
         currentWeatherFragment = CurrentWeatherFragment()
         searchFragment = SearchFragment()
@@ -49,31 +53,13 @@ class MainActivity : AppCompatActivity() {
             .commitNow()
 
         pagerAdapter = PagerAdapter(supportFragmentManager)
-
         viewPager.adapter = pagerAdapter
         tabLayout.setupWithViewPager(viewPager)
 
-
-/*
-        tabLayout.addOnTabSelectedListener(
-            object : TabLayout.OnTabSelectedListener {
-                override fun onTabSelected(tab: TabLayout.Tab) {
-                    viewPager.currentItem = tab.position
-                    Log.e("i" , " ${tab.position} ")
-                }
-
-                override fun onTabUnselected(tab: TabLayout.Tab) {}
-                override fun onTabReselected(tab: TabLayout.Tab) {}
-            })
-
- */
-
-
-        mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-        mainViewModel.selectedItem.observe(this, Observer {
+        mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
+        mainViewModel.selectedItem.observe(this) {
             setBackground(it.first, it.second)
-
-        })
+        }
 
         searchViewModel.selectedCity.observe(this, Observer {
             searchView.onActionViewCollapsed()
@@ -126,13 +112,13 @@ class MainActivity : AppCompatActivity() {
         val gradientDrawable = GradientDrawable(
             GradientDrawable.Orientation.TOP_BOTTOM,
             intArrayOf(
-                Color.parseColor(firstColor),
-                Color.parseColor(secondColor)
+                Color.parseColor(secondColor),
+                Color.parseColor(firstColor)
             )
         )
         gradientDrawable.cornerRadius = 0f
-        actionBar!!.setBackgroundDrawable(ColorDrawable(Color.parseColor(firstColor)))
-        window.statusBarColor = Color.parseColor(firstColor)
+        actionBar!!.setBackgroundDrawable(ColorDrawable(Color.parseColor(secondColor)))
+        window.statusBarColor = Color.parseColor(secondColor)
         findViewById<View>(R.id.layoutMain).background = gradientDrawable
 
     }
@@ -144,7 +130,6 @@ class MainActivity : AppCompatActivity() {
         searchView = menuItem.actionView as SearchView
 
         searchView.setOnCloseListener(SearchView.OnCloseListener {
-
             supportFragmentManager
                 .beginTransaction()
                 .setCustomAnimations(
@@ -153,12 +138,10 @@ class MainActivity : AppCompatActivity() {
                 )
                 .remove(searchFragment)
                 .commitNow()
-
             false
         })
 
         searchView.setOnSearchClickListener {
-
             supportFragmentManager
                 .beginTransaction()
                 .setCustomAnimations(

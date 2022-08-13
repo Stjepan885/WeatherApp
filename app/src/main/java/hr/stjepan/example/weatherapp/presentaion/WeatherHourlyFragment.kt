@@ -13,8 +13,9 @@ import androidx.recyclerview.widget.RecyclerView
 import hr.stjepan.example.weatherapp.R
 import hr.stjepan.example.weatherapp.data.model.Hour
 import hr.stjepan.example.weatherapp.domain.WeatherHourAdapter
-import hr.stjepan.example.weatherapp.presentaion.viewModel.WeatherDailyViewModel
+import hr.stjepan.example.weatherapp.presentaion.viewModel.SearchViewModel
 import hr.stjepan.example.weatherapp.presentaion.viewModel.WeatherHourlyViewModel
+import hr.stjepan.example.weatherapp.presentaion.viewModel.WeatherViewModel
 
 class WeatherHourlyFragment : Fragment() {
 
@@ -23,6 +24,9 @@ class WeatherHourlyFragment : Fragment() {
 
     private lateinit var weatherDayViewModel: WeatherHourlyViewModel
     private lateinit var searchViewModel: SearchViewModel
+
+    //weather view model
+    private lateinit var weatherViewModel: WeatherViewModel
 
     var context = this
 

@@ -1,4 +1,4 @@
-package hr.stjepan.example.weatherapp.presentaion
+package hr.stjepan.example.weatherapp.presentaion.viewModel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

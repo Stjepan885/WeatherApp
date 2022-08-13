@@ -25,7 +25,7 @@
         android:layout_margin="15dp"
         app:cardBackgroundColor="#00FFFFFF"
         app:cardCornerRadius="15dp"
-        app:strokeColor="?attr/colorAccent"
+        app:strokeColor="#32000000"
         app:strokeWidth="1dp"
 
         app:layout_constraintBottom_toTopOf="@+id/materialCardView"
@@ -50,39 +50,39 @@
     </com.google.android.material.card.MaterialCardView>
 
 
-
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/materialCardView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="15dp"
+        app:cardBackgroundColor="#00FFFFFF"
+
         app:cardCornerRadius="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/view_pager"
 
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
 
         app:layout_constraintTop_toBottomOf="@+id/materialCardView1"
-        app:layout_constraintBottom_toTopOf="@+id/view_pager"
 
         app:layout_constraintVertical_weight="0.08"
-
-        app:strokeColor="?attr/colorAccent"
-        app:strokeWidth="2dp"
-        >
+        app:strokeColor="#32000000"
+        app:strokeWidth="2dp">
 
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="#00FFFFFF"
             app:tabGravity="fill"
-            app:tabIndicatorColor="?attr/colorAccent"
+            app:tabIndicatorColor="#63000000"
             app:tabIndicatorGravity="stretch"
             app:tabMaxWidth="0dp"
+
             app:tabMode="fixed"
-            app:tabSelectedTextColor="@android:color/white"
             app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
-            app:tabTextColor="?attr/colorPrimary">
+            app:tabTextColor="@color/black">
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"

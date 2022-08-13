@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import hr.stjepan.example.weatherapp.R
 import hr.stjepan.example.weatherapp.data.model.Day
 import hr.stjepan.example.weatherapp.domain.WeatherDayAdapter
+import hr.stjepan.example.weatherapp.presentaion.viewModel.SearchViewModel
 import hr.stjepan.example.weatherapp.presentaion.viewModel.WeatherDailyViewModel
 
 class WeatherDailyFragment : Fragment() {

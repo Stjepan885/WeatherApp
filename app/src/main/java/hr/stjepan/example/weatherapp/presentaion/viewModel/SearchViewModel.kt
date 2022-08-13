@@ -1,4 +1,4 @@
-package hr.stjepan.example.weatherapp.presentaion
+package hr.stjepan.example.weatherapp.presentaion.viewModel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -14,12 +14,10 @@ class SearchViewModel : ViewModel() {
 
     fun selectedItem(item:String){
         mutableSelectedItem.value = item
-
     }
 
     fun selectedCity(item: Cities){
         mutableSelectedCity.value = item
-
     }
 
 }

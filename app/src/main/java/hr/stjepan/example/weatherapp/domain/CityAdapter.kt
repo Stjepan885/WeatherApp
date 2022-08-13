@@ -53,5 +53,4 @@ class CityAdapter(c: Context, items: List<Cities>, selectedCityListener: Selecte
     override fun getItemCount(): Int {
         return items.size
     }
-
 }

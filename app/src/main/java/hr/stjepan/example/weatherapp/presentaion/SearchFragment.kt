@@ -1,10 +1,10 @@
 package hr.stjepan.example.weatherapp.presentaion
 
 import android.content.Context
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
@@ -13,6 +13,7 @@ import hr.stjepan.example.weatherapp.R
 import hr.stjepan.example.weatherapp.data.model.Cities
 import hr.stjepan.example.weatherapp.domain.CityAdapter
 import hr.stjepan.example.weatherapp.domain.SelectedCityListener
+import hr.stjepan.example.weatherapp.presentaion.viewModel.SearchViewModel
 import java.io.IOException
 
 class SearchFragment() : Fragment(), SelectedCityListener {
@@ -26,22 +27,23 @@ class SearchFragment() : Fragment(), SelectedCityListener {
     var context = this
 
 
-    private lateinit var viewModel: SearchViewModel
+    private lateinit var searchViewModel: SearchViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         return inflater.inflate(R.layout.fragment_search, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProvider(requireActivity())[SearchViewModel::class.java]
-        viewModel.selectedItem.observe(viewLifecycleOwner) {
+        searchViewModel = ViewModelProvider(requireActivity())[SearchViewModel::class.java]
+        searchViewModel.selectedItem.observe(viewLifecycleOwner) {
             if (it == "first" && displayArrayList.size > 0) {
-                viewModel.selectedCity(displayArrayList[0])
+                searchViewModel.selectedCity(displayArrayList[0])
             } else {
                 onQueryTextChange(it.toString())
             }
@@ -101,7 +103,7 @@ class SearchFragment() : Fragment(), SelectedCityListener {
     }
 
     override fun onClick(coords: Cities) {
-        viewModel.selectedCity(coords)
+        searchViewModel.selectedCity(coords)
     }
 
 }
