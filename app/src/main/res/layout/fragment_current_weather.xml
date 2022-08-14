@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="16dp"
-        android:text="HUMIDITY"
+        android:text=""
         android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -30,13 +30,29 @@
         android:layout_marginTop="16dp"
         android:layout_marginRight="30dp"
         android:gravity="center"
-        android:text="Clear"
+        android:text=""
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageViewWeatherIcon"
         android:textColor="@color/black"/>
+
+    <TextView
+        android:id="@+id/textNoInternet"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="30dp"
+        android:gravity="center"
+        android:text=""
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.586"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/textViewCurrentTemperature"
@@ -46,7 +62,7 @@
         android:layout_marginTop="30dp"
 
         android:gravity="center"
-        android:text="15°"
+        android:text=""
         android:textSize="90dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -64,4 +80,6 @@
         app:layout_constraintHorizontal_bias="0.992"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

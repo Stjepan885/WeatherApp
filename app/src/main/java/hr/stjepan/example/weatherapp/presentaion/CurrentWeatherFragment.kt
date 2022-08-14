@@ -1,5 +1,7 @@
 package hr.stjepan.example.weatherapp.presentaion
 
+import android.content.Context
+import android.content.SharedPreferences
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
@@ -28,7 +30,6 @@ class CurrentWeatherFragment : Fragment() {
     lateinit var imageIcon: ImageView
 
     private lateinit var viewMainModel: MainViewModel
-    private lateinit var searchViewModel: SearchViewModel
     private lateinit var weatherViewModel: WeatherViewModel
 
     override fun onCreateView(
@@ -43,18 +44,7 @@ class CurrentWeatherFragment : Fragment() {
         imageIcon = view.findViewById(R.id.imageViewWeatherIcon)
 
         viewMainModel = ViewModelProvider(activity!!).get(MainViewModel::class.java)
-        searchViewModel = ViewModelProvider(activity!!).get(SearchViewModel::class.java)
-
-        //searchViewModel.selectedCity(Cities("Zagreb", CoordCity( 15.97798,45.814442)))
-
-
         weatherViewModel = ViewModelProvider(activity!!)[WeatherViewModel::class.java]
-
-
-
-        searchViewModel.selectedCity.observe(viewLifecycleOwner, Observer {
-            weatherViewModel.setLocation(it.coords.lat, it.coords.lon)
-        })
 
         weatherViewModel.currentWeather.observe(viewLifecycleOwner, Observer {
             Log.e("Current ", " ${it.coordinates.lon}")
@@ -71,8 +61,8 @@ class CurrentWeatherFragment : Fragment() {
         textHumidity.text = "HUMIDITY " + it.temp.humidity.toString() + "%"
         textWeatherType.text = it.weather[0].weatherDescription
 
-        val time = it.weather[0].weatherIcon.subSequence(2,3)
-        val type = it.weather[0].weatherIcon.subSequence(0,2)
+        val time = it.weather[0].weatherIcon.subSequence(2, 3)
+        val type = it.weather[0].weatherIcon.subSequence(0, 2)
         viewMainModel.selectItem(time.toString(), type.toString())
 
         setIcon(it.weather[0].weatherIcon)

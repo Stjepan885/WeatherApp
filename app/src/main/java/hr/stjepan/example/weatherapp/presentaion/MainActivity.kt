@@ -1,26 +1,25 @@
 package hr.stjepan.example.weatherapp.presentaion
 
+import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.GradientDrawable
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
-import androidx.appcompat.app.ActionBar
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
-import androidx.fragment.app.FragmentContainer
-import androidx.fragment.app.FragmentContainerView
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
+import hr.stjepan.example.weatherapp.ConnectionLiveData
 import hr.stjepan.example.weatherapp.R
-import hr.stjepan.example.weatherapp.data.model.Cities
-import hr.stjepan.example.weatherapp.data.model.CoordCity
 import hr.stjepan.example.weatherapp.domain.PagerAdapter
 import hr.stjepan.example.weatherapp.presentaion.viewModel.MainViewModel
 import hr.stjepan.example.weatherapp.presentaion.viewModel.SearchViewModel
@@ -40,11 +39,41 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var searchView: SearchView
 
+    private lateinit var connectionLiveData: ConnectionLiveData
+
+    private lateinit var text: TextView
+
+    private var connection = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val actionBar = supportActionBar
+
+        weatherViewModel = ViewModelProvider(this)[WeatherViewModel::class.java]
+
+        text = findViewById(R.id.noInternet)
+
+        connectionLiveData = ConnectionLiveData(this)
+        connectionLiveData.observe(this) { isNetworkAvailable ->
+            isNetworkAvailable?.let {
+                if (!it) {
+                    text.text = "No Internet Access"
+                    connection = false
+                } else {
+                    text.text = ""
+                    connection = true
+                    if (weatherViewModel.weekWeather.value == null) {
+                        weatherViewModel.setLocation(45.814442, 15.97798)
+                        actionBar?.title = "Zagreb"
+                    }
+                }
+            }
+        }
+
         searchViewModel = ViewModelProvider(this)[SearchViewModel::class.java]
+        mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
 
         currentWeatherFragment = CurrentWeatherFragment()
         searchFragment = SearchFragment()
@@ -61,12 +90,12 @@ class MainActivity : AppCompatActivity() {
         viewPager.adapter = pagerAdapter
         tabLayout.setupWithViewPager(viewPager)
 
-        mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
         mainViewModel.selectedItem.observe(this) {
             setBackground(it.first, it.second)
         }
 
-        searchViewModel.selectedCity.observe(this, Observer {
+        searchViewModel.selectedCity.observe(this) {
+
             searchView.onActionViewCollapsed()
             supportActionBar?.title = it.cityName
             supportFragmentManager
@@ -77,13 +106,22 @@ class MainActivity : AppCompatActivity() {
                 )
                 .remove(searchFragment)
                 .commitNow()
-        })
 
-        val actionBar = supportActionBar
+            if (connection) {
+                weatherViewModel.setLocation(it.coords.lat, it.coords.lon)
+            }
+        }
 
-        weatherViewModel = ViewModelProvider(this)[WeatherViewModel::class.java]
-        weatherViewModel.setLocation(45.814442, 15.97798)
-        actionBar?.title = "Zagreb"
+        if (!isOnline(this)) {
+            text.text = "No Internet Access"
+            connection = false
+
+        } else {
+            weatherViewModel.setLocation(45.814442, 15.97798)
+            actionBar?.title = "Zagreb"
+            connection = true
+        }
+
 
     }
 
@@ -92,8 +130,8 @@ class MainActivity : AppCompatActivity() {
         val window: Window = window
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
 
-        var firstColor = ""
-        var secondColor = ""
+        val firstColor: String
+        val secondColor: String
 
         when (type.toInt()) {
             1, 2 -> if (time == "d") {
@@ -134,13 +172,26 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    fun isOnline(context: Context): Boolean {
+        val connectivityManager =
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val capabilities =
+            connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+        if (capabilities != null) {
+            if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) || capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) || capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
+                return true
+            }
+        }
+        return false
+    }
+
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu, menu)
         val menuItem = menu.findItem(R.id.action_search)
         searchView = menuItem.actionView as SearchView
 
-        searchView.setOnCloseListener(SearchView.OnCloseListener {
+        searchView.setOnCloseListener {
             supportFragmentManager
                 .beginTransaction()
                 .setCustomAnimations(
@@ -150,7 +201,7 @@ class MainActivity : AppCompatActivity() {
                 .remove(searchFragment)
                 .commitNow()
             false
-        })
+        }
 
         searchView.setOnSearchClickListener {
             supportFragmentManager
@@ -161,6 +212,18 @@ class MainActivity : AppCompatActivity() {
                 )
                 .add(R.id.fragment_search, searchFragment)
                 .commitNow()
+            if (!connection) {
+                searchView.onActionViewCollapsed()
+                Toast.makeText(this@MainActivity, "No Internet Access", Toast.LENGTH_SHORT).show()
+                supportFragmentManager
+                    .beginTransaction()
+                    .setCustomAnimations(
+                        R.anim.fade_in,
+                        R.anim.fade_out
+                    )
+                    .remove(searchFragment)
+                    .commitNow()
+            }
         }
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {

@@ -101,7 +101,6 @@ class SearchFragment() : Fragment(), SelectedCityListener {
 
     override fun onClick(coords: Cities) {
         searchViewModel.selectedCity(coords)
-        Log.e("Stajepn", "$coords")
     }
 
 }
