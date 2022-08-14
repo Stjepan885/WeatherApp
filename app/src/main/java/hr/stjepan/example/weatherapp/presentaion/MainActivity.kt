@@ -1,6 +1,7 @@
 package hr.stjepan.example.weatherapp.presentaion
 
 import android.content.Context
+import android.content.pm.ActivityInfo
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.GradientDrawable
@@ -48,6 +49,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        supportActionBar!!.elevation = 0f
 
         val actionBar = supportActionBar
 
