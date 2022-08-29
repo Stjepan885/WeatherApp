@@ -143,6 +143,7 @@ class MainActivity : AppCompatActivity() {
             } else {
                 firstColor = "#9561a1"
                 secondColor = "#122259"
+
             }
             3, 4, 9, 10, 11 -> {
                 firstColor = "#a6bdca"
@@ -181,7 +182,10 @@ class MainActivity : AppCompatActivity() {
         val capabilities =
             connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
         if (capabilities != null) {
-            if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) || capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) || capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
+            if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) || capabilities.hasTransport(
+                    NetworkCapabilities.TRANSPORT_WIFI
+                ) || capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)
+            ) {
                 return true
             }
         }
@@ -249,3 +253,4 @@ class MainActivity : AppCompatActivity() {
         super.onBackPressed()
     }
 }
+
